@@ -1,0 +1,42 @@
+# Model arguments
+seed: 42
+model_name_or_path: /root/autodl-fs/code/LLaMAFactory/saves/qwen_full_7B_format
+torch_dtype: auto
+
+# Data training arguments
+dataset_name: /root/autodl-fs/data/wedoctor_20250318.json
+# eval_dataset_name: /data4/wedoctor/yangqinglin/wedoctor_r1/data/eval.json
+# Num processes is less by 1 as vLLM is using 1 GPU
+# num_processes: 4
+
+# GRPO trainer config
+bf16: true
+use_vllm: true
+vllm_device: auto
+vllm_gpu_memory_utilization: 0.7
+max_prompt_length: 512
+max_completion_length: 1024
+num_generations: 4
+reward_funcs: ["format", "tag_count"]
+# 你是wedoctor，由微医云AI研究院研发。你是具有丰富医学研究和临床实践经验的医学专家，需要你协助用户回答与医疗相关的问题。请一步步思考后给出答案，请将思考过程和答案放在<think></think>和<answer></answer>标签中。即：<think>思考过程</think><answer>答案</answer>
+system_prompt: "你是wedoctor，由微医云AI研究院研发。你是具有丰富医学研究和临床实践经验的医学专家，需要你协助用户回答与医疗相关的问题。请一步步思考后给出答案，请将思考过程和答案放在<think></think>和<answer></answer>标签中。即：<think>思考过程</think><answer>答案</answer>"
+
+# training arguments
+gradient_accumulation_steps: 4
+per_device_train_batch_size: 8
+gradient_checkpointing: true
+learning_rate: 2.0e-05
+logging_steps: 10
+logging_strategy: steps
+lr_scheduler_type: cosine
+num_train_epochs: 1
+output_dir: output/qwen2-7B-Instruct-grpo_new
+overwrite_output_dir: true
+warmup_ratio: 0.1
+save_strategy: steps
+save_steps: 50
+# eval arguments
+# do_eval: no
+# per_device_eval_batch_size: 4
+# eval_strategy: no
+# eval_steps: 10

@@ -43,7 +43,7 @@ import datasets
 import torch
 import transformers
 from datasets import load_dataset
-from transformers import set_seed
+from transformers import set_seed, AutoModelForCausalLM
 from transformers.trainer_utils import get_last_checkpoint
 
 from open_r1.configs import SFTConfig
@@ -98,16 +98,11 @@ def main(script_args, training_args, model_args):
         init_wandb_training(training_args)
 
     ################
-    # Load datasets
-    ################
-    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
-
-    ################
     # Load tokenizer
     ################
     tokenizer = get_tokenizer(model_args, training_args)
     tokenizer.pad_token = tokenizer.eos_token
-
+    
     ###################
     # Model init kwargs
     ###################
@@ -126,6 +121,14 @@ def main(script_args, training_args, model_args):
         quantization_config=quantization_config,
     )
     training_args.model_init_kwargs = model_kwargs
+    
+    ################
+    # Load datasets
+    ################
+    
+    # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+    dataset = load_dataset(script_args.dataset_name.split(".")[-1], data_files=script_args.dataset_name)
+
 
     ############################
     # Initialize the SFT Trainer
