@@ -66,8 +66,4 @@ print(test)
 # if __name__ == '__main__':
 #     file = "/data4/wedoctor/yangqinglin/wedoctor_r1/data/wedoctor_20250311.json"
 #     change_input(file)
-# 这是一个分支dev的提交：3
-# 这是一个分支dev的提交：6
-# 这是一个分支dev的提交：7
-# 这是一个分支dev的提交：8
-# 这是一个main的提交：9
+# 新的main提交：12081
