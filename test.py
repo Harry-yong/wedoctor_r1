@@ -66,4 +66,4 @@ print(test)
 # if __name__ == '__main__':
 #     file = "/data4/wedoctor/yangqinglin/wedoctor_r1/data/wedoctor_20250311.json"
 #     change_input(file)
-# dev的提交：12093
+# main的提交：12904
